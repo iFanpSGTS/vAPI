@@ -1,7 +1,7 @@
 import vweb
-import os
 import json
 import attack
+import os
 
 struct App {
 	vweb.Context
@@ -13,8 +13,9 @@ fn (mut app App) index() vweb.Result {
 
 fn (mut app App) api() vweb.Result {
 
-	username := app.query["username"]
-	//key := app.query["key"]
+	mut check_user := os.read_lines("/database/users.db") ?
+
+	username := app.query["user"]
 	host := app.query["host"]
 	port := app.query["port"]
     times := app.query["times"]
@@ -26,8 +27,16 @@ fn (mut app App) api() vweb.Result {
 		'times': '$times',
 		'method': '$method'
 	}
+
+	for check in check_user {
+		if check.split("")[0] == username {
+			attack.send_attack(username, host, port, times, method)
+		}
+		else {
+			return app.text(json.encode({"error": "Invalid Username!"}))
+		}
+	}
 	output := json.encode(json_data)
-	attack.send_attack(username, host, port, times, method)
 	return app.text(output)
 }
 

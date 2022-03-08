@@ -22,7 +22,7 @@ fn (mut app App) api() vweb.Result {
 	username := app.query["user"]
 	host := app.query["host"]
 	port := app.query["port"]
-    times := app.query["times"]
+        times := app.query["times"]
 	method := app.query["method"]
 
 	// handle empty parameter

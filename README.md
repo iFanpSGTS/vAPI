@@ -1,4 +1,4 @@
-# vAPI v1.0.0
+# vAPI v1.0
 vAPI is API takes attack data and sends it to one or multiple apis that in the source
 
 # Installation
